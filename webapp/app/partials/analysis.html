@@ -1,0 +1,255 @@
+<section class="analysisView">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#/about">NanoGrav</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li><a href="#/about">Home <span class="sr-only">(current)</span></a></li>
+					<li class="active"><a href="#/analysis">Analysis <span class="sr-only">(current)</span></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+
+	<div class="view-body container-fluid">
+		<div class="row buffer" >
+			<div id="datasetSettings" class="col-md-3">
+				<!-- create our form -->
+    		<form name="analysisForm" ng-submit="processAnalysisForm()" novalidate>
+				<div id="datasetForm" class="col-md-12 scroll" style="height:90%">
+					<div id="DataSelection">
+						<h4>Step 1: Select pulsars to analyse </h4>
+
+						<accordion close-others="oneAtATime">
+							<accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+							<accordion-heading>5 Year Data<i class="pull-right glyphicon" 
+							ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}">
+							</i></accordion-heading>
+								<ul class="list-group">
+									<span id="selectallNano5" ng-click="toggleSeleted(nanograv5,'nanograv5')"><u><b>{{selectText['nanograv5']}}</b></u></span>
+									<li class="list-group-item pulsars" ng-repeat="product in nanograv5">
+									<input type="checkbox" value="{{product.id}}" ng-checked='product.checked' ng-model="product.checked"/> {{product.name}} </input>
+									</li>
+								</ul>
+							</accordion-group>
+
+							<accordion-group>
+							<accordion-heading>9 Year Data<i class="pull-right glyphicon" 
+							ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}">
+							</i></accordion-heading>
+								<ul class="list-group">
+									<span id="selectallNano9" ng-click="toggleSeleted(nanograv9,'nanograv9')"><u><b>{{selectText['nanograv9']}}</b></u></span>
+									<li class="list-group-item pulsars" ng-repeat="product in nanograv9">
+									<input type="checkbox" value="{{product.id}}" ng-checked='product.checked' ng-model="product.checked"/> {{product.name}} </input>
+									</li>
+								</ul>
+							</accordion-group>
+
+							<accordion-group>
+							<accordion-heading>PPTA Data<i class="pull-right glyphicon" 
+							ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}">
+							</i></accordion-heading>
+							<p>Data coming soon!</p>
+					    <!-- <ul class="list-group">
+					    	<li class="list-group-item pulsars" ng-repeat="item in nanograv9">
+								<input type="checkbox" checked="checked" class="box"/> {{item}} </input>
+								</li>
+							</ul> -->
+							</accordion-group>
+						   <!--  <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+						      {{group.list}}
+						    </accordion-group> -->
+					  </accordion>
+					</div>
+					<hr/>
+					<accordion close-others="oneAtATime">
+						<accordion-group is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled">
+						<accordion-heading>Advanced Options<i class="pull-right glyphicon" 
+							ng-class="{'glyphicon-chevron-down': status.open, 'glyphicon-chevron-right': !status.open}">
+							</i></accordion-heading>
+							<div id="TimeFilterSelection">
+							<h5>Select time range (Optional)</h5>
+
+							<input type="radio" name="filterTime" value="fullTime" 		ng-model="formData.timeFilter">  Full time range<br>
+							<input type="radio" name="filterTime" value="filterTime" 	ng-model="formData.timeFilter">  Filter Time Range <br> 
+								<div class="input-daterange" id="datepicker">
+									<div class="form-group">
+										<input type="datetime" class="form-control" name="filterStartTime" ng-model="formData.timeStartFilter" placeholder="YYYYMMDD"/>
+										<!-- <span class="add-on">to</span> -->
+										<input type="text" class="form-control" name="filterEndTime" ng-model="formData.timeEndFilter" placeholder="YYYYMMDD">
+									</div>
+								</div>
+							</div>
+							<hr/>
+
+							<div id="FrequencyFilterSelection">
+								<h5>Select frequency range (Optional)</h5>
+
+								<input type="radio" name="filterFrequency" value="fullFrequency"	 ng-model="formData.frequencyFilter">  Full frequency range<br>
+								<input type="radio" name="filterFrequency" value="filterFrequency" ng-model="formData.frequencyFilter">  Filter frequency Range <br> 
+								<div class="form-group">
+		 							<label class="sr-only" for="run-startFrequency"></label>
+		 							<input type="number" class="form-control" name="filterStartFrequency" ng-model="formData.frequencyStartFilter" placeholder="Start Frequency">
+								</div>
+								<div class="form-group">
+									<label class="sr-only" for="run-endFrequency"> </label>
+									<input type="number" class="form-control" name="filterEndFrequency" ng-model="formData.frequencyEndFilter" placeholder="End Frequency">
+								</div>
+							</div>
+							<!--<hr/>
+ 
+							<div id="OtherOptions">
+								<h5>Other Optional Selections</h5>
+								<input type="checkbox" name="residual_plotting" ng-model="formData.residualPlotting" ng-disabled="true">  Display residuals plots<br>
+								<input type="checkbox" name="pulsar_timing" ng-model="formData.pulsarTiming" ng-disabled="true">  Run pulsar timing model<br>
+							</div> -->
+
+							</accordion-group>
+					  </accordion>
+
+
+
+
+					<div id="analysisOptions" ng-hide="hide_analysis">
+						<hr>
+						<h4>Step 2: Perform analysis </h4>
+						<div>
+							<input type="radio" ng-model="analysis" value="OS">  Optimal Statistic<br>
+							<input type="radio" ng-model="analysis" value="Fstat">  CW F-statistic <br>
+							<input type="radio" ng-model="analysis" value="bay" disabled>  Bayesian <br> 
+						</div>
+					</div>
+				</div>
+
+				<p class="text-right">
+					<button class="btn btn-large btn-primary" id="engage" type="submit" ng-disabled="disable_engage" ng-hide="hide_engage">
+						<span class="glyphicon glyphicon-flash"></span> Engage!</button>
+				</p>
+			</form>
+			<form  ng-submit="processAnalysis()">
+				<p class="text-right">
+					<!-- <a href="#analysisResults"> -->
+						<button class="btn btn-large btn-primary" id="engage_analysis" type="submit" ng-disabled="disable_analysis_engage" ng-hide="hide_engage_analysis">
+						<span class="glyphicon glyphicon-flash"></span> Engage Analysis!</button>
+					<!-- </a> -->
+				</p>
+			</form>	
+			</div>
+
+
+
+<!-- Start results view -->
+			<div id="resultView" class="col-md-8">
+
+<!-- Response to "Engage" button -->	
+			<div id="pulsarResults" class="col-md-12" ng-hide="hide_pulsar_section">
+
+				<img ng-src="img/ajax-loader.gif" alt="Loading..." ng-hide="loading"/>
+				<form ng-submit="processAnalysis()" novalidate>
+				<div class="col-md-12" ng-hide="hide_plots">
+					<h4> Pulsar Residual Plot Data</h4>
+
+					<div class="col-md-3">
+						<table class="table table-bordered table-hover">
+							<tr>
+								<th>Pulsar</th>
+								<th>Min freq (MHz)</th>
+								<th>Max freq (MHz)</th>
+								<th>Start MJD</th>
+								<th>End MJD</th>
+								<th>Dataspan (years)</th>
+								<th>RMS (ms)</th>
+								<th>Residual Plots</th>
+							</tr>
+							<tr ng-repeat="plot in plots">
+							 	<td>{{ plot.pulsar }}</td>
+							 	<td>{{ plot.minfreq }}</td>
+							 	<td>{{ plot.maxfreq }}</td>
+							 	<td>{{ plot.startMJD | number:0 }}</td>
+							 	<td>{{ plot.endMJD | number:0 }}</td>
+							 	<td>{{ plot.dataspan | number:2 }}</td>
+							 	<td>{{ plot.rms | number:2 }}</td>
+							 	<td>
+									<div class="text-center">
+										<img ng-src="{{api_url}}/{{plot.filename}}" alt="{{plot.pulsar}}" width="200px"/>
+									</div>	
+									<div> 
+										<button type="button" class="btn btn-default" ng-click="open(plot)">
+											<span class="glyphicon glyphicon-zoom-in" style="color:#3FC380" aria-hidden="true">
+										</button>
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div><br>
+				</form>
+			</div>
+<!-- Response to "Engage Analysis" button -->
+				<div id="analysisResults" class="col-md-12" ng-hide="hide_analysis_section">
+					<hr/>
+					<img ng-src="img/ajax-loader.gif" alt="Loading..." ng-hide="hide_loading_analysis"/>
+					<div ng-hide="hide_analysis_results">
+						<h3> {{analysis_title}} Results </h3> 
+						<div class="text-center" ng-repeat="(key, value) in analysis_data">				
+	 						<!-- <span ng-repeat="r in result"> {{r}}</span> -->
+	 						<table>
+	 							<tr ng-if="key == 'img_path'">
+							  	<td style="padding-right:5px"> <!-- {{key}} </td> <td> {{ value }} -->
+							  		<img ng-src="{{api_url}}/{{value[0]}}" alt="{{value[0]}}" width="200px"/></td>
+								 </td>
+								</tr>
+								<tr ng-if="key != 'img_path' && key != 'A_95'">
+							  	<td style="padding-right:5px"> {{key}}:  </td> <td> {{ value }} </td>
+								</tr>
+							</table>
+	 					</div>
+					</div>
+				</div>
+
+			</div>
+<!-- End results view -->
+		</div>
+	</div> 
+
+</section>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title"> Pulsar {{ modal_data.pulsar }}</h3>
+        </div>
+        <div class="modal-body text-center">
+					<img src="{{api_url}}/{{modal_data.filename}}" alt="{{modal_data.pulsar}}" width="600px"/><br><br>
+					<a target="_self" href="{{api_url}}/download/{{modal_data.residualFile}}" download="{{modal_data.residualFile}}">
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Residual
+						</button>
+					</a>
+					<a target="_self" href="{{api_url}}/download/{{modal_data.timFile}}" download="{{modal_data.timFile}}">
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Tim
+						</button>
+					</a>
+					<a target="_self" href="{{api_url}}/download/{{modal_data.parFile}}" download="{{modal_data.parFile}}">
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Par
+						</button>
+					</a>
+					<a target="_self" href="{{api_url}}/download/{{modal_data.filename}}" download="{{modal_data.filename}}">
+						<button type="button" class="btn btn-default" aria-label="Left Align">
+						<span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Plot
+						</button>
+					</a><br><br> 
+        <div class="modal-footer">
+            <button class="btn btn-warning" type="button" ng-click="cancel()">Close</button>
+        </div>
+    </script>

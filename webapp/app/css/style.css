@@ -1,0 +1,70 @@
+
+/*
+ * CSS Stylesheet for The Bridge
+ *
+ */
+ .view-body {
+ 	margin-top: 35px;
+ }
+
+ .summary {
+ 	margin-top:30px;
+ }
+
+ .buffer {
+ 	margin-top:1%;
+ }
+
+ .scroll {
+ 	overflow-y:auto;
+ 	max-height:80%;
+ }
+
+ .outline {
+ 	background-color: #DADFE1;
+ 	height:25%;
+ 	padding-top:20px;
+ 	margin-top:10px;
+ 	color: #95A5A6;
+
+ }
+
+ .introduction{
+ 	text-align: justify;
+ }
+
+ #datasetSettings {
+ 	position: fixed;
+ 	top: 30;
+ 	left: 0;
+ 	width: 350px;
+ 	height: 100%;
+ 	background-color: #f5f5f5;
+ 	border-right: 1px solid #353535;
+ 	/*border-right: thick solid #353333;*/
+ 	padding: 10px;
+ }
+
+ #datasetForm {
+ 	height: 90%;
+ 	margin: 10px;
+ }
+
+ #engage {
+ 	bottom: 50px;
+ 	right: 10px;
+ 	position: absolute;
+ }
+
+ #resultView {
+ 	margin: 10px 10px 10px 410px;
+ 	min-height: 500px;
+ 	/*background-color: #808080;*/
+ 	/*text-align: center;*/
+ 	overflow: scroll;
+ }
+
+ #analysisResults {
+ 	min-height: 900px;
+
+ }
