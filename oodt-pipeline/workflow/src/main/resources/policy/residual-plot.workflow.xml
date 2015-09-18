@@ -1,0 +1,8 @@
+    <cas:workflow xmlns:cas="http://oodt.jpl.nasa.gov/1.0/cas"
+      name="ResidualPlotting_Workflow"
+      id="urn:oodt:ResidualPlotting_Workflow">
+      
+      <tasks>
+        <task id="urn:oodt:ResidualPlotting_PGETask"/>
+      </tasks>
+    </cas:workflow>

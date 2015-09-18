@@ -1,0 +1,129 @@
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<cas:tasks xmlns:cas="http://oodt.jpl.nasa.gov/1.0/cas">
+
+<!-- TEMPO Task -->
+    <!--  <task id="urn:oodt:TempoWorkflow_PGETask" name="TempoWorkflow_PGETask" class="org.apache.oodt.cas.pge.StdPGETaskInstance">
+     <conditions/>
+     <configuration>
+        <property name="PGETask_Name"              value="TempoWorkflow_PGETask"/>
+        <property name="PGETask_ConfigFilePath"    value="[PGE_HOME]/policy/nano-tempo-pge-config.xml" envReplace="true"/>
+        <property name="PGETask_DumpMetadata"      value="true"/>
+        <property name="PCS_WorkflowManagerUrl"    value="[WORKFLOW_URL]" envReplace="true" />
+        <property name="PCS_FileManagerUrl"        value="[FILEMGR_URL]" envReplace="true"/>
+        <property name="PCS_MetFileExtension"      value="met"/>
+        <property name="PGE_HOME"                  value="[PGE_HOME]" envReplace="true"/>
+        <property name="PCS_ClientTransferServiceFactory" value="org.apache.oodt.cas.filemgr.datatransfer.LocalDataTransferFactory"/>
+        <property name="TEMPO2_PATH"               value="/usr/share/tempo2"/>
+        <property name="Nano_Data_Dir"             value="[NANO_DATA_HOME]/archive/tempo2-data"/>
+        <property name="Nano_Script_Dir"           value="[PGE_HOME]/bin/tempo-scripts"/>
+     </configuration>
+     <requiredMetFields>
+       <metfield name="TAG"/>
+       <metfield name="RES_PLOT"/>
+     </requiredMetFields>
+   </task>
+   
+   <task id="urn:oodt:ResidualPlotting_RediectorTask" name="ResidualPlotting_RediectorTask" class="org.apache.oodt.cas.workflow.examples.BranchRedirector">
+   <conditions/>
+   <configuration>
+        <property name="eventName" value="ResidualPlottingEvent"/>
+   </configuration>
+   </task>  -->
+
+<!-- Residual Plotting Task -->
+    <task id="urn:oodt:ResidualPlotting_PGETask" name="ResidualPlotting_PGETask" class="org.apache.oodt.cas.pge.StdPGETaskInstance">
+     <conditions/>
+     <configuration>
+        <property name="PGETask_Name"           value="ResidualPlotting_PGETask"/>
+        <property name="PGETask_ConfigFilePath" value="[PGE_HOME]/policy/residual-plot-pge-config.xml" envReplace="true"/>
+        <property name="PGETask_DumpMetadata"   value="true"/>
+        <property name="PCS_WorkflowManagerUrl" value="[WORKFLOW_URL]" envReplace="true" />
+        <property name="PCS_FileManagerUrl"     value="[FILEMGR_URL]" envReplace="true"/>
+        <property name="PCS_MetFileExtension"   value="met"/>
+        <property name="PGE_HOME"               value="[PGE_HOME]" envReplace="true"/>
+        <property name="TEMPO2_PATH"            value="/usr/share/tempo2"/>
+        <property name="ARCHIVE_HOME"           value="[NANO_ARCHIVE_HOME]"/>
+        <property name="PCS_ClientTransferServiceFactory" value="org.apache.oodt.cas.filemgr.datatransfer.LocalDataTransferFactory"/>
+     </configuration>
+     <requiredMetFields>
+        <metfield name="PULSAR"/>
+        <metfield name="DATASET"/>
+        <metfield name="TEMP_SESSION"/>
+     </requiredMetFields>
+   </task>
+
+
+<!-- Optimal Stat Task -->
+    <task id="urn:oodt:OptimalStat_PGETask" name="OptimalStat_PGETask" class="org.apache.oodt.cas.pge.StdPGETaskInstance">
+     <conditions/>
+     <configuration>
+        <property name="PGETask_Name"           value="OptimalStat_PGETask"/>
+        <property name="PGETask_ConfigFilePath" value="[PGE_HOME]/policy/optimal-stat-pge-config.xml" envReplace="true"/>
+        <property name="PGETask_DumpMetadata"   value="true"/>
+        <property name="PCS_WorkflowManagerUrl" value="[WORKFLOW_URL]" envReplace="true" />
+        <property name="PCS_FileManagerUrl"     value="[FILEMGR_URL]" envReplace="true"/>
+        <property name="PCS_MetFileExtension"   value="met"/>
+        <property name="PGE_HOME"               value="[PGE_HOME]" envReplace="true"/>
+        <property name="TEMPO2_PATH"            value="/usr/share/tempo2"/>
+        <property name="ARCHIVE_HOME"           value="[NANO_ARCHIVE_HOME]"/>
+        <property name="PCS_ClientTransferServiceFactory" value="org.apache.oodt.cas.filemgr.datatransfer.LocalDataTransferFactory"/>
+     </configuration>
+     <requiredMetFields>
+        <metfield name="TEMP_SESSION"/>
+        <metfield name="DATASET"/>
+    </requiredMetFields>
+   </task>
+
+
+<!-- F-Stat Task -->
+    <task id="urn:oodt:FStat_PGETask" name="FStat_PGETask" class="org.apache.oodt.cas.pge.StdPGETaskInstance">
+     <conditions/>
+     <configuration>
+        <property name="PGETask_Name"           value="FStat_PGETask"/>
+        <property name="PGETask_ConfigFilePath" value="[PGE_HOME]/policy/f-stat-pge-config.xml" envReplace="true"/>
+        <property name="PGETask_DumpMetadata"   value="true"/>
+        <property name="PCS_WorkflowManagerUrl" value="[WORKFLOW_URL]" envReplace="true" />
+        <property name="PCS_FileManagerUrl"     value="[FILEMGR_URL]" envReplace="true"/>
+        <property name="PCS_MetFileExtension"   value="met"/>
+        <property name="PGE_HOME"               value="[PGE_HOME]" envReplace="true"/>
+        <property name="TEMPO2_PATH"            value="/usr/share/tempo2"/>
+        <property name="ARCHIVE_HOME"           value="[NANO_ARCHIVE_HOME]"/>
+        <property name="PCS_ClientTransferServiceFactory" value="org.apache.oodt.cas.filemgr.datatransfer.LocalDataTransferFactory"/>
+     </configuration>
+     <requiredMetFields>
+        <metfield name="TEMP_SESSION"/>
+        <metfield name="DATASET"/>
+     </requiredMetFields>
+   </task>
+<!-- example -->
+    <task id="urn:oodt:HelloWorldPGE" name="HelloWorldPGE" class="org.apache.oodt.cas.pge.StdPGETaskInstance">
+     <conditions/>
+     <configuration>
+        <property name="PGETask_Name" value="HelloWorldPGE"/>
+        <property name="PGETask_ConfigFilePath" value="[PGE_HOME]/policy/example-pge-config.xml" envReplace="true"/>
+        <property name="PGETask_DumpMetadata" value="true"/>
+        <property name="PCS_WorkflowManagerUrl" value="[WORKFLOW_URL]" envReplace="true" />
+        <property name="PCS_FileManagerUrl"     value="[FILEMGR_URL]" envReplace="true"/>
+        <property name="PCS_MetFileExtension" value="met"/>
+        <property name="PCS_ClientTransferServiceFactory" value="org.apache.oodt.cas.filemgr.datatransfer.LocalDataTransferFactory"/>
+        <property name="PCS_ActionRepoFile" value="file:[CRAWLER_HOME]/policy/crawler-config.xml" envReplace="true"/>
+        <property name="PGE_HOME" value="[PGE_HOME]" envReplace="true"/>
+     </configuration>
+     <requiredMetFields/>
+   </task>
+</cas:tasks>

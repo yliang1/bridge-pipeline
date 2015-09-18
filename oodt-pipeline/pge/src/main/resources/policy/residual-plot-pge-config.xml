@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pgeConfig>
+
+  <!-- How to run the PGE -->
+  <exe dir="[JobDir]" shell="/bin/bash">
+    <cmd>echo "**** Begin workflow task for pulsar: [PULSAR] ****"</cmd>
+    <cmd>cd [BridgeScriptDir]</cmd>
+    <cmd>TOA_file=[PulsarDir]/[PULSAR]*.tim</cmd>
+    <cmd>par_file=[PulsarDir]/[PULSAR]*.par</cmd>
+    <cmd>echo "**** Begin filtering process for TOA: " $TOA_file </cmd>
+    <!-- Send filter options to python script with requested params - name output Filtered_PULSAR.tim -->
+    <cmd>mkdir [FilteredDatasetDir]</cmd>
+    <cmd>cp $par_file [FilteredDatasetDir]</cmd> 
+    <cmd>python [FilterTOAscript] -toa $TOA_file -par $par_file -ot [FilteredTim] -st [StartTime] -et [EndTime] -sf [StartFrequency] -ef [EndFrequency]</cmd>
+
+    <cmd>echo "**** Begin running python epoch averaging for TOA (this TOA may be filtered): [FilteredTim] "</cmd>
+    <cmd>echo "**** AvgEpochPGE Output file: [AvgEpochPGEoutput]"</cmd>
+    <cmd>mkdir [AvgEpochOutputDir]</cmd>
+    <cmd>python [BridgeEpochAvg] $par_file [FilteredTim] [AvgEpochOutputDir] > [AvgEpochPGEoutput]</cmd>
+    <cmd>avg_epoch_file=[AvgEpochOutputDir][PlottingPrefix]_[PULSAR]*</cmd>
+
+    <cmd>echo "**** Begin running Residual Plotting with Avg Epoch file: " $avg_epoch_file </cmd>
+    <cmd>mkdir [PlotOutputDir]</cmd>
+    <cmd>python [BridgePlotter] $avg_epoch_file [PlotOutputDir] > [ResPlotPGEPGEoutput]</cmd>
+  </exe>
+
+  <!-- Files to ingest -->
+  <output>
+  </output>
+
+  <!-- Custom metadata to add to output files -->
+  <customMetadata>
+    <!-- helpful keys -->
+    <metadata key="LessThan" val="&#x3C;"/>
+    <metadata key="LessThanOrEqualTo" val="[LessThan]="/>
+    <metadata key="GreaterThan" val="&#x3E;"/>
+    <metadata key="GreaterThanOrEqualTo" val="[GreaterThan]="/>
+    <metadata key="Exclamation" val="&#33;"/>
+    <metadata key="Ampersand" val="&#38;"/>
+    <metadata key="NotEqualTo" val="[Ampersand]="/>
+    <metadata key="LogicalAnd" val="[Ampersand][Ampersand]"/>
+    <metadata key="CshPipeToStdOutAndError" val="[GreaterThan][Ampersand][Exclamation]"/>
+
+    <!--specific keys -->
+    <metadata key="ProductionDateTime"  val="[DATE.UTC]"/>
+    <metadata key="DateMilis"           val="[DATE_TO_MILLIS([ProductionDateTime],UTC_FORMAT,1970-01-01)]"/>
+    <metadata key="SessionDir"          val="[NANO_DATA_HOME]/jobs/[TEMP_SESSION]"/>
+    <metadata key="JobDir"              val="[NANO_DATA_HOME]/jobs/[TEMP_SESSION]/[ProductionDateTime]"/>
+    <metadata key="PulsarDir"           val="[ARCHIVE_HOME]/[DATASET]"/>
+    <metadata key="BridgeScriptDir"     val="[PGE_HOME]/bin/bridge/"/>
+    <metadata key="BridgeTimeFilter"    val="[PGE_HOME]/bin/bridge/filtering-libstempo/TOA_Filtering.py"/>
+    <metadata key="BridgeFreqFilter"    val="[PGE_HOME]/bin/bridge/filtering-libstempo/Frequency_Filtering.py"/>
+    <metadata key="BridgeEpochAvg"      val="[PGE_HOME]/bin/bridge/res-plotting/Average_Epochs.py"/>
+    <metadata key="BridgePlotter"       val="[PGE_HOME]/bin/bridge/res-plotting/Residual_Plotting.py"/>
+    <metadata key="FilterTOAscript"     val="[PGE_HOME]/bin/filterTOA.py"/>
+    <metadata key="FilteredTim"         val="[SessionDir]/session_data/Filtered_[PULSAR].tim"/>
+    <metadata key="FilteredDatasetDir"  val="[SessionDir]/session_data/"/>
+    <metadata key="AvgEpochOutputDir"   val="[SessionDir]/avg_epoch/"/>
+    <metadata key="PlotOutputDir"       val="[SessionDir]/plots/"/>
+    <metadata key="PlottingPrefix"      val="Output_for_plotting"/>
+    <metadata key="AvgEpochPGEoutput"   val="[JobDir]/AvgEpochPGE-[DateMilis].output.txt"/>
+    <metadata key="ResPlotPGEPGEoutput" val="[JobDir]/ResPlotPGEPGE-[DateMilis].output.txt"/>
+
+  </customMetadata>
+
+</pgeConfig>

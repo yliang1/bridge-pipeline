@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pgeConfig>
+
+  <!-- How to run the PGE -->
+  <exe dir="[JobDir]" shell="/bin/bash">
+<!--     <cmd>echo "**** Begin optimal stat workflow task for pulsar: [PULSAR] ****"</cmd>
+ -->    <cmd>echo "**** Begin running python PAL2 script. Output directory: [OptimalOutputDir]"</cmd>
+    <cmd>echo "PAL2 Optimal Statistics PGE Output file: [OptStatPGEPGEoutput]"</cmd>
+    <cmd>python [BridgePAL2] --partim [FilteredDatasetDir]/ --outdir [OptimalOutputDir] --pulsar all --pta [DATASET] --pipeline OS > [OptStatPGEPGEoutput]</cmd>
+  </exe>
+
+  <!-- Files to ingest -->
+  <output>
+  </output>
+
+  <!-- Custom metadata to add to output files -->
+  <customMetadata>
+    <!-- helpful keys -->
+    <metadata key="LessThan" val="&#x3C;"/>
+    <metadata key="LessThanOrEqualTo" val="[LessThan]="/>
+    <metadata key="GreaterThan" val="&#x3E;"/>
+    <metadata key="GreaterThanOrEqualTo" val="[GreaterThan]="/>
+    <metadata key="Exclamation" val="&#33;"/>
+    <metadata key="Ampersand" val="&#38;"/>
+    <metadata key="NotEqualTo" val="[Ampersand]="/>
+    <metadata key="LogicalAnd" val="[Ampersand][Ampersand]"/>
+    <metadata key="CshPipeToStdOutAndError" val="[GreaterThan][Ampersand][Exclamation]"/>
+
+    <!--specific keys -->
+    <metadata key="ProductionDateTime"  val="[DATE.UTC]"/>
+    <metadata key="DateMilis"           val="[DATE_TO_MILLIS([ProductionDateTime],UTC_FORMAT,1970-01-01)]"/>
+    <metadata key="SessionDir"          val="[NANO_DATA_HOME]/jobs/[TEMP_SESSION]"/>
+    <metadata key="JobDir"              val="[SessionDir]/[ProductionDateTime]"/>
+    <metadata key="OptimalOutputDir"    val="[SessionDir]/optimal_stat"/>
+    <metadata key="FilteredDatasetDir"  val="[SessionDir]/session_data"/>
+    <metadata key="PulsarDir"           val="[ARCHIVE_HOME]/[DATASET]"/>
+    <metadata key="BridgePAL2"          val="[PGE_HOME]/bin/bridge/gw_analysis/run_GW_pipeline.py"/>
+    <metadata key="OptStatPGEPGEoutput" val="[JobDir]/OptStatPGE-[DateMilis].output.txt"/>
+
+  </customMetadata>
+
+</pgeConfig>
+  

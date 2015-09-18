@@ -1,0 +1,8 @@
+    <cas:workflow xmlns:cas="http://oodt.jpl.nasa.gov/1.0/cas"
+      name="OptimalStat_Workflow"
+      id="urn:oodt:OptimalStat_Workflow">
+      
+      <tasks>
+        <task id="urn:oodt:OptimalStat_PGETask"/>
+      </tasks>
+    </cas:workflow>

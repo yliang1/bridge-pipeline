@@ -1,0 +1,8 @@
+    <cas:workflow xmlns:cas="http://oodt.jpl.nasa.gov/1.0/cas"
+      name="FStat_Workflow"
+      id="urn:oodt:FStat_Workflow">
+      
+      <tasks>
+        <task id="urn:oodt:FStat_PGETask"/>
+      </tasks>
+    </cas:workflow>
