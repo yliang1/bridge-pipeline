@@ -1,4 +1,3 @@
-# bridge-pipeline 
 The Bridge pipeline.
 ===================
 
@@ -6,7 +5,8 @@ The Bridge pipeline.
 
 
 
-####The Bridge pipeline uses Apache Object Oriented Data Technology (OODT) for data processing. Apache OODT integrates and archives your processes, your data, and its metadata (https://oodt.apache.org/).
+####The Bridge pipeline uses Apache Object Oriented Data Technology (OODT) for data processing. Apache OODT integrates and archives your processes, your data, and its metadata 
+(https://oodt.apache.org/).
 
 ##### <i class="icon-folder-open"></i> OODT code structure:
 > - **bin** -- Holds env.sh (where all environment variables are located) and oodt script (used to start and stop oodt)   
@@ -30,6 +30,7 @@ The Bridge pipeline.
 
 
 ####The User Interface (UI) code uses AngularJS , an open-source (javascript) web application framework.
+(https://angularjs.org/)
 
 ##### <i class="icon-folder-open"></i> UI code structure:
 
@@ -46,8 +47,9 @@ and instructions for the application are given. In the analysis.html file, you
 will find all the HTML and angular data-binding for the main application.
 
 > For example, you can see that the data selection "accordion", advanced options, the engage buttons, and the result views are all defined within this page.
-> 
-> Comments in HTML are enclosed in `<!-- comment -->` (and it appears in blue in vi)
+
+
+> **Note:** Comments in HTML are enclosed in `<!-- comment -->` (and it appears in blue in vi)
 
 **js directory**: In this directory you will find all the JS code that controls the
 HTML. In this application we use an angular route library (found in lib/angualr
