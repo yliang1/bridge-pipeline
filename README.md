@@ -3,14 +3,12 @@ The Bridge pipeline.
 ===================
 
 
-----------
 
 
-The Bridge pipeline uses Apache Object Oriented Data Technology (OODT) for data
-processing. Apache OODT integrates and archives your processes, your data, and
-its metadata (https://oodt.apache.org/).
 
-#### <i class="icon-folder-open"></i> OODT code structure:
+####The Bridge pipeline uses Apache Object Oriented Data Technology (OODT) for data processing. Apache OODT integrates and archives your processes, your data, and its metadata (https://oodt.apache.org/).
+
+##### <i class="icon-folder-open"></i> OODT code structure:
 > - **bin** -- Holds env.sh (where all environment variables are located) and oodt script (used to start and stop oodt)   
 > - **data**  
 > -- **archive** -- Holds all the datasets (format for datasets is name_of_dataset i.e. 'nanograv5' and include all .tim and .par files and nothing else)  
@@ -27,12 +25,13 @@ its metadata (https://oodt.apache.org/).
 > -- **policy** -- Define workflows here. For an addition of a workflow, you will need to edit the events.xml, tasks.xml and create a new workflow file to define where the pge configuration file is located (so create a pge config (pge/policy) for you workflow as well)
 
 
+
 ----------
 
 
 ####The User Interface (UI) code uses AngularJS , an open-source (javascript) web application framework.
 
-#### <i class="icon-folder-open"></i> UI code structure:
+##### <i class="icon-folder-open"></i> UI code structure:
 
  > - **app** - Angular web application   ⁃ css -- This directory holds all CSS stylesheets.   
  > -- **img** -- This directory holds all images needed for the UI. 
